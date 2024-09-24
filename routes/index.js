@@ -5,8 +5,13 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Cloud computing class' });
 });
-// /* GET home page. */
-// router.get('/admin', function(req, res, next) {
-//   res.render('admin', { title: 'ADMIN PAGE' });
-// });
+/* GET Login page. */
+router.get('/login', function(req, res, next) {
+  res.render('login', { title: 'LOGIN PAGE' });
+});
+/* POST Login page. */
+router.post('/login', function(req, res, next) {
+  // login authen --> true
+  res.redirect('/users')
+});
 module.exports = router;
