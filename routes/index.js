@@ -12,6 +12,7 @@ router.get('/login', function(req, res, next) {
 /* POST Login page. */
 router.post('/login', function(req, res, next) {
   // login authen --> true
+  console.log(req)
   res.redirect('/users')
 });
 module.exports = router;
