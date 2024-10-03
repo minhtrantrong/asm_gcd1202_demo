@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const authenticator = require('../controllers/authen')
-
+const login_controller = require('../controllers/login_controller')
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Cloud computing class' });
@@ -12,17 +11,6 @@ router.get('/login', function(req, res, next) {
 });
 /* POST Login page. */
 router.post('/login', async function(req, res, next) {
-  // Call authenication function for checking username, password
-  let uname = req.body.username
-  let pword = req.body.password
-  console.log(`USERNAME: ${uname}`);
-  console.log(`PASSWORD: ${pword}`);
-  // if authentication return --> true
-  result = await authenticator(uname, pword)
-  if (result.rowCount == 1) {
-    res.redirect('/users');
-  } else {
-    res.render('login', { title: 'LOGIN PAGE' });
-  }
+  await login_controller(req, res);
 });
 module.exports = router;
