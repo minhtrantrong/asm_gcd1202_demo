@@ -7,10 +7,16 @@ router.get('/', function(req, res, next) {
 });
 /* GET Login page. */
 router.get('/login', function(req, res, next) {
-  res.render('login', { title: 'LOGIN PAGE' });
+  let authented = req.session.authented;
+  console.log(`SESSION: ${req.session.username}`);
+  if (authented) {
+    res.redirect('/users');
+  } else {
+    res.render('login', { title: 'LOGIN PAGE' });
+  }
 });
 /* POST Login page. */
 router.post('/login', async function(req, res, next) {
-  await login_controller(req, res);
+  let authented = await login_controller(req, res);
 });
 module.exports = router;
