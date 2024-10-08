@@ -12,7 +12,15 @@ async function login_ctrl(req, res) {
     authented = true;
     req.session.authented = authented;
     req.session.username = uname;
-    res.redirect('/users');
+    // Save user role in session??
+    let role_id = result.rows[0].role_id;
+    req.session.role_id = role_id;
+    if (role_id <=2) {
+      res.redirect('/admins');
+    } else {
+      res.redirect('/users');
+    }
+    
   } else {
     res.render('login', { title: 'LOGIN PAGE' });
   }
