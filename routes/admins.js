@@ -1,13 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var display_admin_page = require('../controllers/get_admins_controller')
 
 /* GET /admins page. */
 router.get('/', function(req, res, next) {
-  if (req.session.authented && req.session.role_id <= 2) {
-    res.render('admins', { title: 'ADMIN PAGE' });
-  } else {
-    res.redirect('/')
-  }
+  display_admin_page(req, res);
 });
 
 module.exports = router;

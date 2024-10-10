@@ -11,10 +11,11 @@ async function view_table() {
     // result = await pool.query(`SELECT * FROM users WHERE uname='minh' AND pword='123456'`);
     let username = 'minh';
     let password = '123456';
-    const query_string = {
-      text: 'SELECT * FROM users WHERE uname = $1 AND pword = $2',
-      values: [username, password],
-    }
+    // const query_string = {
+    //   text: 'SELECT * FROM users WHERE uname = $1 AND pword = $2',
+    //   values: [username, password],
+    // }
+    let query_string = `SELECT * FROM products;`
     result = await pool.query(query_string)
     console.log(result);
 }
