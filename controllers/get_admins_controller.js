@@ -24,13 +24,35 @@ async function display_admin_page(req, res) {
                 }
                 table +=`</tr>`;
             }
-            table += `</table>`;
-            
+            table += `</table>`; 
         } catch(err) {
             console.log(err);
             table = "Cannot connect to DB";
         }
-        res.render('admins', { title: 'ADMIN PAGE', products_table: table });
+        let dropdown_list = "";
+        try {
+            const query = `SELECT id, shop_name FROM shops;`;
+            const result = await pool.query(query);
+            const rows = result.rows;
+            dropdown_list = `<form action="" method="post">
+                <label for="shop">Choose a shop ID:</label>
+                <select name="shops" id="cars">
+                <option value=0 >All shops</option>`;
+            for (let row of rows) {
+                if (row.id > 1) {
+                    dropdown_list += `<option value=${row.id} >${row.shop_name}</option>`;
+                }   
+            }
+            dropdown_list += `</select>
+                    <button type="submit"> Select </button>
+                </form>`
+        } catch(err) {
+            console.log(err);
+            dropdown_list = "Cannot connect to DB";
+        }
+        res.render('admins', { title: 'ADMIN PAGE',
+                                 products_table: table, 
+                                 droplist: dropdown_list});
     } else {
         res.redirect('/');
     }

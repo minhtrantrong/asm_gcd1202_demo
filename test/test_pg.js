@@ -15,7 +15,7 @@ async function view_table() {
     //   text: 'SELECT * FROM users WHERE uname = $1 AND pword = $2',
     //   values: [username, password],
     // }
-    let query_string = `SELECT * FROM products;`
+    let query_string = `SELECT id, shop_name FROM shops;`
     result = await pool.query(query_string)
     console.log(result);
 }
